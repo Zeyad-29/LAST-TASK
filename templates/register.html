@@ -3,20 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Register</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f9;
-            color: #333;
+            background-color: #f9f9f9;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
         }
-        .login-container {
+        .register-container {
             background: #fff;
             padding: 20px 30px;
             border-radius: 8px;
@@ -24,25 +23,39 @@
             width: 100%;
             max-width: 400px;
         }
-        h2 {
+        h1 {
             text-align: center;
-            color: #444;
             margin-bottom: 20px;
+            color: #333;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+        ul li {
+            margin-bottom: 5px;
+        }
+        ul li::before {
+            content: "⚠️";
+            margin-right: 5px;
         }
         label {
-            display: block;
             font-weight: bold;
+            display: block;
             margin-bottom: 5px;
         }
         input[type="text"],
+        input[type="email"],
         input[type="password"] {
             width: 100%;
             padding: 10px;
             margin-bottom: 15px;
-            border: 1px solid #ddd;
+            border: 1px solid #ccc;
             border-radius: 4px;
         }
         input[type="text"]:focus,
+        input[type="email"]:focus,
         input[type="password"]:focus {
             outline: none;
             border-color: #007bff;
@@ -50,12 +63,12 @@
         }
         button {
             width: 100%;
-            background-color: #007bff;
-            color: #fff;
-            border: none;
             padding: 10px;
             font-size: 16px;
             font-weight: bold;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
             border-radius: 4px;
             cursor: pointer;
         }
@@ -76,19 +89,34 @@
     </style>
 </head>
 <body>
-    <div class="login-container">
-        <h2>Login</h2>
-        <form method="POST" action="/login">
+    <div class="register-container">
+        <h1>Register</h1>
+        
+        {% if errors %}
+            <ul style="color: red;">
+                {% for error in errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+        
+        <form method="POST" action="/register">
             <label for="username">Username:</label>
-            <input type="text" id="username" name="username" placeholder="Enter your username" required>
+            <input type="text" id="username" name="username" value="{{ username|default('') }}" placeholder="Enter your username" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="{{ email|default('') }}" placeholder="Enter your email" required>
             
             <label for="password">Password:</label>
             <input type="password" id="password" name="password" placeholder="Enter your password" required>
-
-            <button type="submit">Login</button>
+            
+            <label for="confirm_password">Confirm Password:</label>
+            <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
+            
+            <button type="submit">Register</button>
         </form>
         <div class="form-footer">
-            <p>Don't have an account? <a href="/register">Sign up</a></p>
+            <p>Already have an account? <a href="/login">Login</a></p>
         </div>
     </div>
 </body>

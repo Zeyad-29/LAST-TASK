@@ -2,12 +2,77 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Comments Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+            padding: 20px;
+        }
+        h1, h2 {
+            text-align: center;
+            color: #444;
+        }
+        form {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            resize: none;
+        }
+        textarea:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+        }
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        ul {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 0;
+            list-style-type: none;
+        }
+        ul li {
+            background: #fff;
+            border: 1px solid #ddd;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
 <body>
     <h1>Leave a Comment</h1>
     <form method="POST" action="/comment">
-        <textarea name="comment" rows="5" cols="40" placeholder="Write a comment..."></textarea>
+        <textarea name="comment" placeholder="Write a comment..." required></textarea>
         <br>
         <input type="submit" value="Post Comment">
     </form>
@@ -15,7 +80,7 @@
     <h2>All Comments</h2>
     <ul>
         {% for comment in comments %}
-            <li>{{ comment|safe }}</li> <!-- Intentionally unsafe rendering -->
+            <li>{{ comment|e }}</li> <!-- Use safe escaping to avoid XSS vulnerabilities -->
         {% endfor %}
     </ul>
 </body>
