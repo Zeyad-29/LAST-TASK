@@ -1,0 +1,6 @@
+h
+
+<script>alert('XSS Vulnerability!');</script>
+
+<script>alert('XSS Vulnerability!');</script>
+
